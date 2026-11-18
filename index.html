@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Thought diary</title>
+<title>Health anxiety</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Thought diary">
+<meta name="apple-mobile-web-app-title" content="Health anxiety">
 <meta name="theme-color" content="#EEF2F1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141B1F" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -119,35 +119,557 @@ details.help li{margin-bottom:4px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
 .card h3{font-size:1.05rem;margin-bottom:6px}
 .card p{margin:0 0 12px;color:var(--muted);font-size:.95rem}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:.92rem;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast{max-width:88vw;text-align:center;position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:.92rem;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion: reduce){.toast{transition:none}}
+
+body{padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+a{color:var(--accent)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:8;display:flex;justify-content:center;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabbar a{flex:1;max-width:186px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 0 8px;color:var(--muted);text-decoration:none;font-size:.78rem;position:relative}
+.tabbar a svg{width:24px;height:24px}
+.tabbar a[aria-current="page"]{color:var(--accent);font-weight:700}
+.tabbar .dot{position:absolute;top:7px;left:calc(50% + 8px);width:9px;height:9px;border-radius:50%;background:var(--warm)}
+.continue{display:block;width:100%;text-align:left;border:0;border-radius:16px;background:var(--accent);color:var(--accent-ink);padding:16px 18px;margin-bottom:18px}
+.continue .c-k{display:block;font-size:.85rem;opacity:.85}
+.continue .c-t{display:block;font-family:Literata,Georgia,serif;font-size:1.15rem;font-weight:600}
+.progress{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);border-radius:3px}
+.mods{list-style:none;margin:6px 0 0;padding:0}
+.mod{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;background:transparent;padding:13px 0;border-bottom:1px solid var(--line)}
+.mods li:last-child .mod{border-bottom:0}
+.num{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:Literata,Georgia,serif;font-weight:600;font-size:1.05rem;box-shadow:inset 0 0 0 1.5px var(--line);color:var(--ink)}
+.mod.done .num{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.mt{display:flex;flex-direction:column}
+.mt-t{font-weight:700}
+.mt-s{font-size:.9rem;color:var(--muted)}
+.pills{display:flex;gap:5px;margin:0 0 18px}
+.pills button{flex:1 1 0;min-width:0;max-width:40px;aspect-ratio:1;padding:0;border-radius:50%;border:0;background:transparent;box-shadow:inset 0 0 0 1.5px var(--line);font-weight:700;color:var(--muted)}
+.pills button.dn{color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent-soft);background:var(--accent-soft)}
+.pills button.on{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.mod-title{font-size:1.75rem;margin:0 0 6px}
+.sec{font-family:Literata,Georgia,serif;font-size:1.15rem;margin:26px 0 10px}
+.ideas{margin:0;padding-left:20px}
+.ideas li{margin-bottom:12px}
+.ideas li::marker{color:var(--accent)}
+.readfull{display:inline-block;margin:6px 0 4px;font-weight:700}
+.tools{display:grid;gap:10px}
+.tool{display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.tool-t{font-weight:700}
+.tool-d{font-size:.9rem;color:var(--muted)}
+.tool-s{font-size:.82rem;color:var(--accent);font-weight:700;margin-top:4px}
+.grp{font-size:.9rem;color:var(--muted);margin:16px 0 8px}
+.btn.wide{width:100%;margin-top:26px}
+.btn:disabled{opacity:.45}
+.modlink{margin-top:18px}
+.prose p{margin:0 0 14px}
+.seg4{display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.seg4 button{border:0;background:var(--surface);padding:9px 2px;font-size:.78rem;min-height:44px}
+.seg4 button+button{border-left:1.5px solid var(--line)}
+.seg4 button[aria-pressed="true"]{background:var(--accent-soft);font-weight:700}
+.sq{margin-bottom:16px}
+.sq p{margin:0 0 6px}
+.result{background:var(--accent-soft);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.result:empty{display:none}
+.stp{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:10px}
+.stp.ok{border-color:var(--accent)}
+.stp .row{flex-wrap:nowrap}
+.stp input[type=text]{border:0;border-bottom:1.5px solid var(--line);border-radius:0;padding:6px 0;background:transparent}
+.stp input[type=checkbox]{width:24px;height:24px;accent-color:var(--accent);flex:none}
+.stp.ok input[type=text]{text-decoration:line-through;color:var(--muted)}
+.stp .x{border:0;background:transparent;color:var(--muted);width:40px;height:40px;font-size:1.2rem;flex:none}
+.mini{font-size:.8rem;color:var(--muted)}
+.loglist{list-style:none;padding:0;margin:12px 0 0}
+.loglist li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.witem{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.witem time{font-size:.82rem;color:var(--muted)}
+.witem p{margin:2px 0 6px}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pgrid label,.pl{display:flex;flex-direction:column;gap:4px;font-size:.88rem;color:var(--muted)}
+.pl{margin-top:10px}
+input[type=time],input[type=number]{width:100%;font:inherit;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px}
+.card input[type=text],.card textarea{background:var(--paper)}
+.timer{display:grid;place-items:center;margin:4px 0 20px}
+.ring{width:210px;height:210px;border-radius:50%;background:conic-gradient(var(--accent) var(--p,0deg),var(--line) 0);display:grid;place-items:center}
+.ring>div{width:186px;height:186px;border-radius:50%;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring span{font-family:Literata,Georgia,serif;font-size:2.6rem;font-weight:600;font-variant-numeric:tabular-nums}
+.ring small{color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
+<nav class="tabbar" aria-label="Main">
+<a href="#" data-tab="course"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Course</a>
+<a href="#tools" data-tab="tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Tools</a>
+<a href="#backup" data-tab="backup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>Backup<span class="dot" id="bkdot" hidden></span></a>
+</nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
+/* ---------- Course content (summaries written for this app) ---------- */
+const CCI_HOME="https://www.cci.health.wa.gov.au/Resources/Looking-After-Yourself/Health-Anxiety";
+const MODULES=[
+{n:1,t:"Understanding health anxiety",s:"What it is and when it becomes a problem",
+ url:"https://cci.health.wa.gov.au/~/media/CCI/Consumer%20Modules/Helping%20Health%20Anxiety/Helping%20Health%20Anxiety%20-%2001%20-%20Understanding%20Health%20Anxiety.pdf",
+ ideas:[
+ "Everyone worries about their health sometimes. Noticing changes in your body and wondering what they mean is part of being human.",
+ "Health is broader than not being sick. It covers how you’re going physically, mentally and socially, and it sits on a sliding scale rather than being all or nothing.",
+ "Anxiety is your body’s alarm system. It goes off when you sense danger, whether the danger is real or only possible. Health anxiety is that alarm firing over a possible threat to your health, or sometimes a loved one’s.",
+ "It becomes a problem when the worry is out of proportion to the real risk, sticks around despite clear tests or a doctor’s reassurance, drives a lot of checking, reassurance seeking or avoidance, and gets in the way of everyday life.",
+ "Your symptoms can be completely real. What matters is how you respond to them, not whether they exist.",
+ "Health anxiety can strain relationships with family, friends and doctors, make work or study harder, cost money, take the fun out of life, and add a layer of anxiety symptoms on top of everything else.",
+ "The modules build on each other, so working through them in order gives the most benefit. You can still jump to any module whenever you need it."],
+ tools:["m1start","m1check","m1impact"]},
+{n:2,t:"How health anxiety develops",s:"The experiences and beliefs that set it up",
+ url:"https://cci.health.wa.gov.au/-/media/CCI/Consumer-Modules/Helping-Health-Anxiety/Helping-Health-Anxiety---02---How-Health-Anxiety-Develops.pdf",
+ ideas:[
+ "There’s no single cause. Some people may be biologically more prone to anxiety, and life experiences add to that.",
+ "Experiences that commonly feed health worries include watching someone close go through a serious illness, losing someone (especially suddenly or after a long illness), having a medical problem yourself, growing up around someone who worried a lot about health, and frightening health stories in the media or online.",
+ "These experiences can leave you with a sense that your health is fragile and that illness is common, painful or hopeless.",
+ "To protect yourself, you might develop rigid rules (“I must…”, “My doctor should…”, “If… then…”) and become highly tuned in to every sensation in your body.",
+ "Rules aren’t the problem in themselves. They become unhelpful when they’re inaccurate or too rigid to bend to real life.",
+ "Bodies are noisy, a bit like an old car that rattles but keeps running. Watching a sensation closely tends to make it feel stronger and more worrying.",
+ "This vulnerability can sit quietly for years until something triggers it. The good news is that you don’t need to change your past to recover. What keeps it going now is what you can change."],
+ tools:["m2dev"]},
+{n:3,t:"What keeps health anxiety going",s:"Triggers and the vicious cycle",
+ url:"https://www.cci.health.wa.gov.au/~/media/CCI/Consumer%20Modules/Helping%20Health%20Anxiety/Helping%20Health%20Anxiety%20-%2003%20-%20What%20Keeps%20Health%20Anxiety%20Going.pdf",
+ ideas:[
+ "Triggers can be internal, like normal body sensations or a new symptom, or external, like a news story, an upcoming appointment, someone else’s diagnosis, an unclear test result or being away from your usual doctors.",
+ "A trigger switches on your health rules, and you start reading sensations or medical information in the most catastrophic way possible.",
+ "Catastrophic thoughts set off the fight-or-flight response. Its physical effects, such as a racing heart, tension, dizziness, tingling and an upset stomach, then become new things to worry about.",
+ "Four patterns keep the cycle turning: focusing on symptoms, checking and reassurance seeking, avoidance, and safety behaviours (only doing things with precautions in place).",
+ "Each one brings short-term relief. In the long run, focusing amplifies symptoms, checking can cause soreness, no amount of reassurance gives total certainty, and avoidance stops you learning that your fears may not come true.",
+ "Mapping your own cycle shows exactly where you can break it. Rules and assumptions are left until Module 8 because they’re the hardest to shift, and they loosen more easily once the cycle is weakened."],
+ tools:["m3cycle"]},
+{n:4,t:"Reducing your focus on symptoms",s:"Attention training and worry postponement",
+ url:"https://cci.health.wa.gov.au/~/media/CCI/Consumer%20Modules/Helping%20Health%20Anxiety/Helping%20Health%20Anxiety%20-%2004%20-%20Reducing%20Your%20Focus%20on%20Health%20Symptoms%20and%20Worries.pdf",
+ ideas:[
+ "Scanning your body and dwelling on worries feeds the cycle and pulls your attention away from everything else. The goal is to retrain where your attention goes.",
+ "First, check whether you believe worrying or watching your body is useful, for example that it keeps you safe or prepared. If so, put that belief to the test before trying to let it go.",
+ "Think of attention as a muscle that gets stronger with practice. A wandering mind is normal. The skill is noticing it has wandered and bringing it back, so every wander is another repetition.",
+ "Everyday task focus: during routine jobs like dishes, showering or gardening, keep returning your attention to what you can feel, see, hear, smell and taste.",
+ "Mindfulness: notice what’s present, rest your attention on your breath, then widen it to your whole body breathing. Build up towards ten minutes twice a day.",
+ "Worry postponement: set a daily worry period (same time and place, up to 30 minutes, not right before bed). When a worry pops up, jot it down in a few words and save it for later. By then, many worries have lost their grip.",
+ "When to get checked: use the self-care you already know for colds, headaches and backaches. For many symptoms, such as pain or a cold, wait about two weeks, and see your doctor if it’s still there. Get prompt care for a high fever, severe pain or signs of a worsening infection. If you have a diagnosis or take medication, work out your own guidelines with your doctor."],
+ tools:["m4belief","worry","meditate","attention","worryreview"]},
+{n:5,t:"Re-evaluating unhelpful thinking",s:"Thought diaries and weighing up evidence",
+ url:"https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Helping-Health-Anxiety/Helping-Health-Anxiety---05---Re-Evaluating-Unhelpful-Health-Related-Thinking.pdf",
+ ideas:[
+ "How you interpret a situation, more than the situation itself, shapes how you feel and what your body does.",
+ "Health anxiety tends to overestimate how likely a serious illness is and how bad it would be, dismiss less frightening explanations, and underestimate your ability to cope.",
+ "Thoughts are guesses, not facts. Approach them like a detective: weigh the evidence for and against, consider other explanations and settle on the most likely one.",
+ "Do this on paper (or in the thought diary), not in your head, where it gets tangled. If worries come often, postpone them and use the diary during your worry period.",
+ "Be a careful consumer of health information. Search neutrally (“common causes of headaches” rather than “headache brain tumour”), look for both sides, and favour reputable, current sources.",
+ "Keep a summary of your realistic thoughts so you can revisit them when an old worry returns. If a realistic thought stops feeling believable, do a fresh diary entry."],
+ tools:["diary","summary"]},
+{n:6,t:"Reducing checking and reassurance seeking",s:"Breaking the reassurance cycle",
+ url:"https://cci.health.wa.gov.au/-/media/CCI/Consumer-Modules/Helping-Health-Anxiety/Helping-Health-Anxiety---06---Reducing-Checking-and-Reassurance-Seeking.pdf",
+ ideas:[
+ "Checking and seeking reassurance bring brief relief, but no test can rule out everything, so doubt returns and the cycle starts again.",
+ "Living with some uncertainty about health is something everyone has to do. Constant checking stops you building that tolerance.",
+ "The aim isn’t zero checking. Never checking and constantly checking are both unhelpful; the goal is a healthy middle.",
+ "Too much checking can cause soreness, cost money and time, and strain relationships with family, friends and doctors.",
+ "Start by noticing how often you check, then pick one or two behaviours to work on.",
+ "Three steps: evaluate the behaviour and decide whether to decrease, postpone or eliminate it; set a new goal (gradually, with a stepladder, if needed) and plan how you’ll cope; then test it out and see what you learn.",
+ "Decrease or postpone a behaviour that’s medically sensible but overdone. Eliminate one that goes against medical advice, like symptom forums or painful self-examination. Your GP can tell you what’s appropriate for you.",
+ "The urge to check rises and then passes. Ride it out, use your attention skills, and reward yourself for hard steps."],
+ tools:["m6inventory","m6reduce","ladder"]},
+{n:7,t:"Challenging avoidance and safety behaviours",s:"Graded exposure, step by step",
+ url:"https://www.cci.health.wa.gov.au/~/media/CCI/Consumer%20Modules/Helping%20Health%20Anxiety/Helping%20Health%20Anxiety%20-%2007%20-%20Challenging%20Avoidance%20and%20Safety%20Behaviours.pdf",
+ ideas:[
+ "Avoidance means staying away from people, places, activities or thoughts linked to illness, or from things that change how your body feels, like exercise or coffee.",
+ "Safety behaviours are a subtler form: doing the thing only with a backup in place, like carrying medication or a phone “just in case”.",
+ "Both ease anxiety in the moment, but your fears never get tested, your confidence shrinks and life can become very narrow.",
+ "Trying not to think about illness or death tends to backfire, the same way trying not to picture a pink elephant does.",
+ "Graded exposure means facing fears gradually. List what you avoid, choose specific goals that matter to you, and build a stepladder of steps rated 0–100 for distress. Change who, what, when, where or how long to create easier steps.",
+ "Exposure can include feared thoughts too, such as writing a will, reading about a condition you fear, or writing a worry story in the first person and rereading it until it loses its sting.",
+ "For each step: plan when, expect some anxiety, remind yourself of your realistic thoughts, stay until the anxiety eases, and drop safety behaviours.",
+ "Repeat each step several times before moving up, acknowledge your wins, and if a step goes badly, add an in-between step or go back one."],
+ tools:["m7avoid","ladder","exposure","story"]},
+{n:8,t:"Adjusting health rules and assumptions",s:"Making your rules realistic and flexible",
+ url:CCI_HOME,
+ ideas:[
+ "We all live by rules we picked up from early experiences and the people around us, often without realising.",
+ "Helpful rules are realistic and flexible. Unhelpful ones are rigid or unreasonable, like expecting a doctor to explain every sensation you have.",
+ "Unhelpful health rules often sound like “I must always…”, “My doctor should…”, “I should never…” or “If… then [something terrible]”.",
+ "To adjust a rule, ask where it came from and why it’s still here, what impact it has on your life, and in what ways it’s unrealistic or unhelpful.",
+ "Then write a balanced alternative. Softer words help (“I’d prefer…”, “sometimes…”), as does giving “if… then” statements a less alarming ending. Balanced rules are often longer, because they allow for real life.",
+ "Plan daily actions that put the new rule into practice. Old rules take time to wear out, so keep the new one somewhere handy.",
+ "Keep the genuinely helpful rules, like seeing a doctor if pain is getting worse."],
+ tools:["m8identify","m8adjust"]},
+{n:9,t:"Healthy living and self-management",s:"Your new way of operating and staying on track",
+ url:"https://cci.health.wa.gov.au/~/media/CCI/Consumer%20Modules/Helping%20Health%20Anxiety/Helping%20Health%20Anxiety%20-%2009%20-%20Healthy%20Living%20and%20Self-Management%20Planning.pdf",
+ ideas:[
+ "Triggers will still switch on old rules from time to time. What changes is how you respond.",
+ "When that happens: adjust the rule, let go of your focus on symptoms (attention exercises and postponement), re-evaluate worrying thoughts with a thought diary, reduce checking and reassurance seeking, and gradually face what you avoid.",
+ "Doing things differently usually feels harder at first. Over time you worry less, bring on fewer symptoms, spend less time checking or avoiding, and have more time for what matters.",
+ "Setbacks are a normal part of change, much like learning a new sport. Focus on getting back on track rather than on the slip itself.",
+ "A self-management plan helps you spot early warning signs and risky situations, and reminds you which strategies and coping statements work for you.",
+ "Looking after your overall health gives you less to worry about. Set specific, practical actions for social connection, stress, diet, exercise, fun, sleep and personal goals."],
+ tools:["m9plan","m9healthy"]}
+];
+
+const OPT4=["Never","Occasionally","Often","Very often"];
+const FORMS={
+ m1start:{m:1,kind:"single",t:"My health and my worries",d:"How you see your health, and what you worry about",f:[
+  {k:"health",type:"area",l:"How would I describe my overall health?",h:"Think about how you’re going physically, mentally and socially."},
+  {k:"focus",type:"area",l:"Looking at what I wrote, what did I focus on?",h:"Did you mostly describe illness and symptoms, or your wider wellbeing?"},
+  {k:"worries",type:"area",l:"In what ways do I worry about my health?",h:"Particular symptoms? A specific illness you fear you have or will get? Or a general sense that something isn’t right?"}]},
+ m1check:{m:1,kind:"single",t:"Is health anxiety a problem for me?",d:"A quick self-check",f:[
+  {k:"items",type:"scale4",l:"How often is each of these true for you?",items:[
+   "I worry about my health","I worry that I have, or will get, a serious illness","I worry that body sensations or changes mean something serious","I find it hard to switch off or let go of health worries","I mentally scan my body or mind for signs something is wrong","I pay close attention to body sensations or symptoms","I struggle to concentrate on other things because of sensations or symptoms","I physically check my body for symptoms or changes","I often see doctors or specialists about health concerns or for tests","I avoid doctors or specialists because I’m too worried about what they’ll find","My worry continues even after reassurance or clear test results","I look up my symptoms online or in books","I talk about my symptoms with family or friends","I avoid people, places or activities that set off health worries","I avoid people, places or activities that bring on certain body sensations"]}]},
+ m1impact:{m:1,kind:"single",t:"How health anxiety affects me",d:"The toll it’s taking",f:[
+  {k:"impact",type:"area",l:"How is health anxiety affecting my life?",h:"Consider relationships, work or study, enjoyment, your relationship with doctors, money, and anxiety symptoms like tension or poor sleep."}]},
+ m2dev:{m:2,kind:"single",t:"How my health anxiety developed",d:"Your personal picture of how it started",f:[
+  {k:"exp",type:"area",l:"What experiences may have increased my concerns about my health?",h:"Illness or death of someone close, your own medical history, family attitudes to health, things you read or watched."},
+  {k:"rules",type:"area",l:"What “should”, “must” or “if… then” rules do I hold about my health?",h:"How might these link back to those experiences?"},
+  {k:"sens",type:"area",l:"Which symptoms or sensations am I most tuned in to?",h:"How much time each day do you spend focused on them?"}]},
+ m3cycle:{m:3,kind:"single",t:"How my health anxiety is maintained",d:"Map your own vicious cycle",f:[
+  {k:"intTrig",type:"area",l:"Internal triggers",h:"Sensations or symptoms in your body that set off worry."},
+  {k:"extTrig",type:"area",l:"External triggers",h:"News, appointments, other people’s illness, test results, travel."},
+  {k:"rules",type:"area",l:"Health rules and assumptions that get switched on",h:"You can copy these from Module 2."},
+  {k:"thSens",type:"area",l:"What do I tell myself about my body sensations?"},
+  {k:"thInfo",type:"area",l:"What do I tell myself about what my doctor says, or what I hear elsewhere?"},
+  {k:"anx",type:"area",l:"Anxiety symptoms I notice"},
+  {k:"focus",type:"area",l:"What am I focusing on?"},
+  {k:"check",type:"area",l:"Checking and reassurance seeking",h:"Body checking, asking others, searching online, requesting tests."},
+  {k:"avoid",type:"area",l:"Avoidance and safety behaviours",h:"People, places and things you avoid, or precautions you feel you must take."},
+  {k:"short",type:"area",l:"Short-term effects",h:"For example, relief or a sense of control."},
+  {k:"long",type:"area",l:"Long-term effects",h:"For example, worry continues, symptoms feel stronger, the urge to check grows."}]},
+ m4belief:{m:4,kind:"multi",t:"Questioning positive beliefs about worry",d:"Test beliefs like “watching my symptoms keeps me safe”",f:[
+  {k:"belief",type:"text",l:"The belief I’m testing",h:"For example, “If I keep an eye on my body, I’ll catch problems in time.”"},
+  {k:"before",type:"rate",l:"How much do I believe it right now?"},
+  {k:"goal",type:"area",l:"What am I trying to achieve by focusing my attention this way?"},
+  {k:"works",type:"area",l:"Does it actually achieve that?",h:"How exactly does it protect you? If you were diagnosed with something tomorrow, how would all this focusing have prepared you?"},
+  {k:"cost",type:"area",l:"What are the downsides?",h:"Does it make sensations stronger or set off more anxiety? Could focusing on one symptom mean you miss another?"},
+  {k:"child",type:"area",l:"If a child focused on symptoms and worries as much as I do, would I encourage them to do more? Why or why not?"},
+  {k:"concl",type:"area",l:"What can I conclude?"},
+  {k:"after",type:"rate",l:"How much do I believe it now?"}]},
+ attention:{m:4,kind:"multi",t:"Attention training log",d:"Record everyday task focus and meditation practice",f:[
+  {k:"type",type:"choice",l:"Type of practice",o:["Everyday task","Meditation"]},
+  {k:"task",type:"text",l:"What I did",h:"For example, washing the dishes, or a 5 minute breathing practice."},
+  {k:"dur",type:"text",l:"How long"},
+  {k:"selfBefore",type:"rate",l:"Before: how much of my attention was on myself (thoughts, symptoms)?"},
+  {k:"selfAfter",type:"rate",l:"During: how much of my attention was on myself?"},
+  {k:"notes",type:"area",l:"What did I notice?",h:"Where did your mind wander? Did you catch it and bring it back? How did it compare with last time?"}]},
+ worryreview:{m:4,kind:"single",t:"Reviewing worry postponement",d:"Reflect after a week of practice",f:[
+  {k:"what",type:"area",l:"What happened to the worries I postponed? Did I still need to worry about them later?"},
+  {k:"symp",type:"area",l:"What happened to the symptoms I was worried about?"},
+  {k:"hard",type:"area",l:"If postponing was hard, what got in the way?",h:"Did you write worries down or try to remember them? Would more attention practice help?"}]},
+ m6inventory:{m:6,kind:"single",t:"My checking and reassurance seeking",d:"What you do, and how often",f:[
+  {k:"list",type:"check",l:"Which of these do I do often and repeatedly?",o:["Checking in the mirror for moles, lumps, discolouration or asymmetry","Pressing, poking or pinching my skin, breasts, stomach or elsewhere","Checking saliva, urine or faeces for blood or infection","Measuring parts of my body","Monitoring my pulse, blood pressure or other body processes","Weighing myself or bodily excretions","Asking family, friends or health professionals about symptoms","Researching symptoms online or in medical books","Posting symptoms online for other people’s opinions","Asking for tests, check-ups or second opinions"]},
+  {k:"other",type:"area",l:"Other checking or reassurance seeking"},
+  {k:"freq",type:"area",l:"How often do I do each one?",h:"Not sure? Keep a tally beside the mirror, ask family to note each time you ask them, check your diary for appointments, or time your searching."},
+  {k:"impact",type:"area",l:"What negative impacts are these having?",h:"Soreness, cost, time, strain on relationships."},
+  {k:"pick",type:"area",l:"Which one or two will I work on first?",h:"Start with the one affecting you most, or the one that feels easiest."}]},
+ m6reduce:{m:6,kind:"multi",t:"Reducing a checking behaviour",d:"Evaluate it, set a new goal, test it out",f:[
+  {k:"_1",type:"head",l:"Step 1: How helpful is it?"},
+  {k:"beh",type:"text",l:"The behaviour",h:"For example, checking my moles every morning."},
+  {k:"adv",type:"area",l:"Advantages",h:"What is it meant to achieve? Are there real benefits to doing it this often?"},
+  {k:"dis",type:"area",l:"Disadvantages",h:"What does doing it this often cost you? Does it actually achieve its goal?"},
+  {k:"sense",type:"area",l:"Weighing it up, how much sense does it make to keep doing it this often?"},
+  {k:"dec",type:"choice",l:"What should I do with it?",o:["Decrease","Postpone","Eliminate"]},
+  {k:"why",type:"area",l:"Why?"},
+  {k:"_2",type:"head",l:"Step 2: A new goal"},
+  {k:"goal",type:"text",l:"New goal"},
+  {k:"how",type:"area",l:"What specifically will I do? Straight away or gradually?",h:"If it feels too big, break it into steps with a stepladder."},
+  {k:"nadv",type:"area",l:"Advantages of the new behaviour"},
+  {k:"ndis",type:"area",l:"Disadvantages of the new behaviour"},
+  {k:"nsense",type:"area",l:"How much sense does it make to try it?"},
+  {k:"cope",type:"area",l:"How will I manage the anxiety? What will I say to myself and do?",h:"The urge will pass. Bodies rattle like old cars. Practise living with uncertainty. Use attention exercises. Plan a reward."},
+  {k:"_3",type:"head",l:"Step 3: Test it out"},
+  {k:"did",type:"choice",l:"Was I able to do what I planned?",o:["Yes","Partly","Not yet"]},
+  {k:"learn",type:"area",l:"What did I learn about myself and about the old and new behaviours?",h:"If it didn’t go to plan, revisit Steps 1 and 2 or break the goal into smaller steps."}]},
+ ladder:{m:7,kind:"multi",t:"Stepladders",d:"Break a goal into gradual steps",f:[
+  {k:"goal",type:"text",l:"My goal",h:"Be specific, for example, “attend a check-up at my GP”."},
+  {k:"why",type:"area",l:"Why is this goal important to me?",h:"Come back to this if your motivation dips."},
+  {k:"steps",type:"steps",l:"Steps",h:"Rate each step 0–100 for distress and start with the lowest. Create easier steps by changing who is there, what you do, when, where, or for how long."}]},
+ exposure:{m:7,kind:"multi",t:"Exposure diary",d:"Record each step you take",f:[
+  {k:"plan",type:"text",l:"What I planned to do"},
+  {k:"exp",type:"rate",l:"Expected distress"},
+  {k:"act",type:"rate",l:"Actual distress"},
+  {k:"did",type:"choice",l:"Did I do it?",o:["Yes","Partly","No"]},
+  {k:"notes",type:"area",l:"What helped, or what made it hard and how can I prepare next time?"}]},
+ story:{m:7,kind:"multi",t:"Worry stories",d:"Face feared thoughts by writing them out",f:[
+  {k:"topic",type:"text",l:"What the story is about"},
+  {k:"story",type:"area",rows:10,l:"My worry story",h:"Write in the first person, as if it’s happening right now. Focus on what you’re thinking, feeling and doing."},
+  {k:"reads",type:"log",l:"Each time I read it, how distressing was it?",h:"Reread it several times a day over a week or two. The distress usually drops with repetition."}]},
+ m7avoid:{m:7,kind:"single",t:"My avoidance and safety behaviours",d:"What you avoid or only do with precautions",f:[
+  {k:"list",type:"check",l:"Which of these do I avoid, or only do with precautions?",o:["Doctors, check-ups or follow-ups","Clinics, hospitals or waiting rooms","Phoning for test results","Reading information from my doctor","Telling my doctor about symptoms","Taking medication my doctor prescribed","Public toilets","Food close to its use-by date","News, medical dramas or health stories","Funeral homes, cemeteries or obituaries","Writing a will or thinking about my funeral","Visiting people who are or have been unwell","Exercise or stairs","Coffee, fizzy drinks or spicy food","Sex","Going out without medication, my phone or hand sanitiser","Thinking about illness, death, or how others would cope"]},
+  {k:"other",type:"area",l:"Other things I avoid or safety behaviours I use",h:"Look back at your thought diaries for ideas. Safety behaviours can be subtle."},
+  {k:"thoughts",type:"area",l:"Thoughts I try not to have"},
+  {k:"goals",type:"area",l:"One or two specific goals I’d like to work on",h:"Turn each into a stepladder."}]},
+ m8identify:{m:8,kind:"single",t:"Spotting my health rules",d:"Questions to uncover your rules and assumptions",f:[
+  {k:"learned",type:"area",l:"How did people around me respond to health concerns? What might I have learned?"},
+  {k:"self",type:"area",l:"What standards do I expect myself to meet about my health?"},
+  {k:"doc",type:"area",l:"What standards do I expect doctors to meet?"},
+  {k:"allow",type:"area",l:"What symptoms do I let myself have without worrying?"},
+  {k:"never",type:"area",l:"What symptoms or sensations do I never let myself have?"},
+  {k:"pred",type:"area",l:"What negative predictions do I make again and again?",h:"Look for repeated themes in your thought diaries."},
+  {k:"rules",type:"area",l:"Rules and assumptions I’ve noticed",h:"“I must…”, “My doctor should…”, “I should never…”, “If… then…”"}]},
+ m8adjust:{m:8,kind:"multi",t:"Adjusting a health rule",d:"Turn a rigid rule into a balanced one",f:[
+  {k:"rule",type:"text",l:"The rule or assumption I want to adjust"},
+  {k:"origin",type:"area",l:"Where might it have come from? Why is it still here?",h:"What does it seem to protect you from now?"},
+  {k:"impact",type:"area",l:"What impact does it have on my life?",h:"Thoughts, feelings, behaviour, relationships, the things you value."},
+  {k:"unreal",type:"area",l:"In what ways is it unreasonable, unrealistic or unhelpful?",h:"Is it achievable? Could your doctor really meet it? Do the disadvantages outweigh the advantages?"},
+  {k:"alt",type:"area",l:"A more balanced and flexible alternative",h:"Try “I’d prefer…”, “sometimes…”, or a less alarming ending to an “if… then”."},
+  {k:"practice",type:"area",l:"What will I do day to day to put it into practice?"}]},
+ m9plan:{m:9,kind:"single",t:"My self-management plan",d:"Spot setbacks early and get back on track",f:[
+  {k:"warn",type:"area",l:"Early warning signs that I might be heading for a setback",h:"Particular thoughts, more checking or avoidance, things others say, anxiety symptoms."},
+  {k:"sit",type:"area",l:"Situations that could be a problem for me",h:"Stressful periods, check-ups, a diagnosis, someone close becoming unwell."},
+  {k:"strat",type:"area",l:"Strategies I can use when I notice warning signs"},
+  {k:"say",type:"area",l:"Coping statements and helpful phrases",h:"Your balanced rules, realistic thoughts from your diary, anything that helps."}]},
+ m9healthy:{m:9,kind:"single",t:"My healthy living plan",d:"Specific actions for your overall wellbeing",f:[
+  {k:"social",type:"area",l:"Social activities and support",h:"For example, “Call a friend this week to catch up.”"},
+  {k:"stress",type:"area",l:"Stress management",h:"For example, “Leave work on time on Thursdays for a walk.”"},
+  {k:"diet",type:"area",l:"Diet",h:"For example, “Add vegetables to lunch three days this week.”"},
+  {k:"exercise",type:"area",l:"Exercise",h:"For example, “Two morning walks with the dog.”"},
+  {k:"fun",type:"area",l:"Pleasant or fun activities",h:"Something you used to enjoy, or something new."},
+  {k:"sleep",type:"area",l:"Sleep",h:"For example, “Phone out of the bedroom by 10pm.”"},
+  {k:"goals",type:"area",l:"Personal goals",h:"One clear step towards something you want to achieve."},
+  {k:"other",type:"area",l:"Other",h:"Alcohol, dental or GP check-ups due, keeping up recommended treatment."}]}
+};
+const SPECIAL={
+ diary:{t:"Thought diary",d:"Question a health worry and find a more realistic thought",go:"diary"},
+ summary:{t:"Summary of my thoughts",d:"Original worries alongside realistic thoughts",go:"summary"},
+ worry:{t:"Worry list",d:"Postpone worries to your worry period",go:"worry"},
+ meditate:{t:"Mindfulness timer",d:"A guided 5 or 10 minute practice",go:"meditate"}
+};
 (function(){
-const LS_ENTRIES='td-entries-v1', LS_DRAFT='td-draft-v1';
-const S={entries:[],step:0};
-let F=null; // form being edited
-let draftTimer=null;
-
+/* ---------- Storage ---------- */
+const LS_ENTRIES='td-entries-v1', LS_DRAFT='td-draft-v1', LS_BACKUP='td-lastbackup-v1', LS_DATA='hha-data-v1';
 function lsGet(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
-function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast('Couldn’t save. Your phone may be low on storage.')}}
 function lsDel(k){try{localStorage.removeItem(k)}catch(e){}}
-function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function newId(){return 'e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+', '+d.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2400)}
+const S={entries:lsGet(LS_ENTRIES)||[],step:0,nav:0,timer:null};
+let D=lsGet(LS_DATA)||{};
+function normD(){D.forms=D.forms||{};D.done=D.done||{};D.worry=D.worry||{};D.worry.period=D.worry.period||{};D.worry.items=D.worry.items||[]}
+normD();
+let dTimer=null;
+function saveD(){lsSet(LS_DATA,D)}
+function saveDSoon(){clearTimeout(dTimer);dTimer=setTimeout(saveD,300)}
+window.addEventListener('pagehide',()=>{clearTimeout(dTimer);saveD()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(dTimer);saveD()}});
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 
+/* ---------- Helpers ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function uid(p){return (p||'r')+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function fmtDate(ts){const d=new Date(ts);return d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+', '+d.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})}
+function fmtShort(ts){const d=new Date(ts);return d.toLocaleDateString('en-AU',{day:'numeric',month:'short'})+', '+d.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2400)}
+function route(){return (location.hash||'').replace(/^#/,'')}
+function go(h){if(route()===h)render();else location.hash=h}
+function back(def){if(S.nav>0)history.back();else go(def)}
+function hdr(title,def,extra){return '<header class="top"><button class="icon" data-back="'+esc(def)+'" aria-label="Back">‹</button><h2>'+esc(title)+'</h2>'+(extra||'')+'</header>'}
+window.addEventListener('hashchange',()=>{S.nav++;S.step=0;F=null;stopTimer();render();window.scrollTo(0,0)});
+
+/* ---------- Form data helpers ---------- */
+function isFilled(v){if(v==null)return false;if(typeof v==='string')return v.trim()!=='';if(typeof v==='number')return true;if(Array.isArray(v))return v.length>0;if(typeof v==='object')return Object.keys(v).length>0;return false}
+function singleRec(id){return D.forms[id]||null}
+function multiRecs(id){return Array.isArray(D.forms[id])?D.forms[id]:[]}
+function recTitle(id,r){const f=FORMS[id].f.find(x=>(x.type==='text'||x.type==='area')&&isFilled(r[x.k]));return f?String(r[f.k]).split('\n')[0]:'Untitled'}
+function toolStatus(id){
+  if(id==='diary'){const n=S.entries.length;return n?n+(n===1?' entry':' entries'):''}
+  if(id==='summary'){const n=S.entries.filter(e=>e.realistic).length;return n?n+' realistic thought'+(n===1?'':'s'):''}
+  if(id==='worry'){const n=D.worry.items.filter(i=>i.status==='open').length;return n?n+' waiting':''}
+  if(id==='meditate')return '';
+  const F_=FORMS[id];if(!F_)return '';
+  if(F_.kind==='multi'){const n=multiRecs(id).length;return n?n+(n===1?' entry':' entries'):''}
+  const r=singleRec(id);if(!r)return '';
+  const tot=F_.f.filter(x=>x.type!=='head').length,got=F_.f.filter(x=>x.type!=='head'&&isFilled(r[x.k])).length;
+  return got?(got>=tot?'Complete':'Started'):'';
+}
+function toolCard(id){
+  const sp=SPECIAL[id],fm=FORMS[id],t=sp?sp.t:fm.t,d=sp?sp.d:fm.d,go_=sp?sp.go:'f-'+id,st=toolStatus(id);
+  return '<button class="tool" data-go="'+go_+'"><span class="tool-t">'+esc(t)+'</span><span class="tool-d">'+esc(d)+'</span>'+(st?'<span class="tool-s">'+esc(st)+'</span>':'')+'</button>';
+}
+
+/* ---------- Course views ---------- */
+function courseView(){
+  let h='<header class="top"><h1>Helping Health Anxiety</h1></header>';
+  h+='<p class="lead">Nine modules based on the Centre for Clinical Interventions course. Work through them in order, or jump to any module.</p>';
+  const doneN=MODULES.filter(m=>D.done[m.n]).length;
+  if(D.last&&!D.done[D.last]){const m=MODULES[D.last-1];h+='<button class="continue" data-go="m'+m.n+'"><span class="c-k">Continue</span><span class="c-t">Module '+m.n+': '+esc(m.t)+'</span></button>'}
+  h+='<div class="progress" aria-label="'+doneN+' of 9 modules done"><span style="width:'+(doneN/9*100)+'%"></span></div><p class="status">'+doneN+' of 9 modules marked done</p>';
+  h+='<ol class="mods">'+MODULES.map(m=>'<li><button class="mod'+(D.done[m.n]?' done':'')+'" data-go="m'+m.n+'"><span class="num" aria-hidden="true">'+(D.done[m.n]?'✓':m.n)+'</span><span class="mt"><span class="mt-t">'+esc(m.t)+'</span><span class="mt-s">'+esc(m.s)+'</span></span></button></li>').join('')+'</ol>';
+  h+='<div class="footer-links" style="justify-content:center"><button class="btn quiet" data-go="about">About this app</button></div>';
+  return h;
+}
+function moduleView(n){
+  const m=MODULES[n-1];D.last=n;saveDSoon();
+  let h='<header class="top"><button class="icon" data-back="" aria-label="Back to modules">‹</button><h2>Module '+n+'</h2></header>';
+  h+='<nav class="pills" aria-label="Jump to module">'+MODULES.map(x=>'<button data-go="m'+x.n+'" class="'+(x.n===n?'on ':'')+(D.done[x.n]?'dn':'')+'" '+(x.n===n?'aria-current="page"':'')+' aria-label="Module '+x.n+'">'+x.n+'</button>').join('')+'</nav>';
+  h+='<h1 class="mod-title">'+esc(m.t)+'</h1>';
+  h+='<h3 class="sec">Key ideas</h3><ul class="ideas">'+m.ideas.map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul>';
+  h+='<a class="readfull" href="'+esc(m.url)+'" target="_blank" rel="noopener">Read the full module from CCI (PDF)</a>';
+  h+='<h3 class="sec">Exercises</h3><div class="tools">'+m.tools.map(toolCard).join('')+'</div>';
+  h+='<button class="btn '+(D.done[n]?'ghost':'')+' wide" id="markDone">'+(D.done[n]?'Marked as done':'Mark module as done')+'</button>';
+  h+='<div class="nav">'+(n>1?'<button class="btn ghost" data-go="m'+(n-1)+'">Module '+(n-1)+'</button>':'<span></span>')+(n<9?'<button class="btn ghost" data-go="m'+(n+1)+'">Module '+(n+1)+'</button>':'<span></span>')+'</div>';
+  return h;
+}
+function bindModule(n){
+  document.getElementById('markDone').addEventListener('click',()=>{D.done[n]=!D.done[n];saveD();if(D.done[n])toast('Module '+n+' done');render()});
+}
+function toolsView(){
+  let h='<header class="top"><h1>Tools</h1></header><p class="lead">Your worksheets and trackers from across the course.</p>';
+  const groups=[['Everyday tools',['diary','worry','meditate','attention']],['Plans and stepladders',['ladder','exposure','m9plan']],['All worksheets by module',null]];
+  groups.forEach(([g,ids])=>{
+    if(ids){h+='<h3 class="sec">'+g+'</h3><div class="tools">'+ids.map(toolCard).join('')+'</div>'}
+    else{h+='<h3 class="sec">'+g+'</h3>';MODULES.forEach(m=>{h+='<p class="grp">Module '+m.n+': '+esc(m.t)+'</p><div class="tools">'+m.tools.map(toolCard).join('')+'</div>'})}
+  });
+  return h;
+}
+function aboutView(){
+  return hdr('About this app','')+
+  '<div class="prose"><p>This app is a personal companion to <a href="'+CCI_HOME+'" target="_blank" rel="noopener">Helping Health Anxiety</a> by Rebecca Anderson, Lisa Saulsman and Paula Nathan at the Centre for Clinical Interventions (CCI), Perth, Western Australia (2011). The key ideas are short summaries written for this app; read CCI’s full modules for the complete course.</p>'+
+  '<p>Everything you enter stays on this device. Use Backup to keep a copy somewhere safe.</p>'+
+  '<p>This app isn’t a substitute for advice from your GP or a mental health professional. If you need to talk to someone now, Lifeline is available 24/7 on 13 11 14, and in an emergency call 000.</p></div>';
+}
+
+/* ---------- Generic worksheet ---------- */
+let R=null; // record being edited
+function fieldHTML(f){
+  const v=R[f.k];
+  if(f.type==='head')return '<h3 class="sec">'+esc(f.l)+'</h3>';
+  let h='<div class="field">';
+  const lbl=(f.type==='text'||f.type==='area'||f.type==='rate')?'<label for="w-'+f.k+'">'+esc(f.l)+'</label>':'<span class="lbl">'+esc(f.l)+'</span>';
+  h+=lbl+(f.h?'<p class="hint">'+esc(f.h)+'</p>':'');
+  if(f.type==='text')h+='<input type="text" id="w-'+f.k+'" data-k="'+f.k+'" value="'+esc(v)+'">';
+  else if(f.type==='area')h+='<textarea id="w-'+f.k+'" data-k="'+f.k+'" rows="'+(f.rows||3)+'">'+esc(v)+'</textarea>';
+  else if(f.type==='rate')h+='<div class="rate"><input type="range" min="0" max="100" step="5" id="w-'+f.k+'" data-rk="'+f.k+'" value="'+(v==null?50:v)+'"><output>'+(v==null?'-':v+'%')+'</output></div>';
+  else if(f.type==='choice')h+='<div class="seg3">'+f.o.map(o=>'<button data-ck="'+f.k+'" data-cv="'+esc(o)+'" aria-pressed="'+(v===o)+'">'+esc(o)+'</button>').join('')+'</div>';
+  else if(f.type==='check'){const sel=v||[];h+='<div class="chips">'+f.o.map(o=>'<button class="chip" data-xk="'+f.k+'" data-xv="'+esc(o)+'" aria-pressed="'+(sel.indexOf(o)>=0)+'">'+esc(o)+'</button>').join('')+'</div>'}
+  else if(f.type==='scale4'){const a=v||{};h+=f.items.map((it,i)=>'<div class="sq"><p>'+esc(it)+'</p><div class="seg4">'+OPT4.map((o,j)=>'<button data-sk="'+f.k+'" data-si="'+i+'" data-sv="'+j+'" aria-pressed="'+(a[i]===j)+'">'+o+'</button>').join('')+'</div></div>').join('')+'<div class="result" id="res-'+f.k+'">'+scaleResult(f,a)+'</div>'}
+  else if(f.type==='steps'){h+='<div id="steps-'+f.k+'">'+stepsHTML(f.k)+'</div>'}
+  else if(f.type==='log'){const L=v||[];h+='<div class="rate"><input type="range" min="0" max="100" step="5" id="log-'+f.k+'" value="50"><output>50%</output></div><button class="btn ghost" data-logk="'+f.k+'">Log this reading</button>'+(L.length?'<ul class="loglist">'+L.slice().reverse().map(x=>'<li><span>'+esc(fmtShort(x.ts))+'</span><b>'+x.v+'%</b></li>').join('')+'</ul>':'')}
+  return h+'</div>';
+}
+function scaleResult(f,a){const n=Object.keys(a).length;if(!n)return '';const hi=Object.values(a).filter(x=>x>=2).length;return '<b>'+hi+' of '+f.items.length+'</b> answered Often or Very often'+(n<f.items.length?' ('+n+' answered so far)':'')+'.<br>If that’s most of them, health anxiety is probably worth working on. Even a few can mean these skills will help.'}
+function stepsHTML(k){
+  const L=R[k]||[];
+  let h=L.length?'':'<p class="hint">No steps yet.</p>';
+  h+=L.map((s,i)=>'<div class="stp'+(s.done?' ok':'')+'"><div class="row"><input type="checkbox" data-sd="'+i+'" '+(s.done?'checked':'')+' aria-label="Step done"><input type="text" data-st="'+i+'" value="'+esc(s.t)+'" placeholder="Describe the step"><button class="x" data-sx="'+i+'" aria-label="Remove step">×</button></div><div class="rate"><span class="mini">Distress</span><input type="range" min="0" max="100" step="5" data-sr="'+i+'" value="'+(s.d==null?50:s.d)+'"><output>'+(s.d==null?'-':s.d)+'</output></div></div>').join('');
+  h+='<div class="row"><button class="btn quiet" data-sadd="'+k+'">+ Add a step</button>'+(L.length>1?'<button class="btn quiet" data-ssort="'+k+'">Sort by distress</button>':'')+'</div>';
+  return h;
+}
+function touch(){R.updated=Date.now();saveDSoon()}
+function worksheetView(id,rid){
+  const fm=FORMS[id];
+  if(fm.kind==='multi'&&!rid){
+    const L=multiRecs(id).slice().sort((a,b)=>(b.created||0)-(a.created||0));
+    let h=hdr(fm.t,'m'+fm.m,'<button class="btn" id="newRec">New</button>');
+    h+='<p class="lead">'+esc(fm.d)+'.</p>';
+    if(!L.length)h+='<div class="empty"><p>Nothing here yet. Tap New to start.</p></div>';
+    h+=L.map(r=>'<button class="entry" data-go="f-'+id+'-'+r.id+'"><time>'+esc(fmtDate(r.created))+'</time><p class="hot">'+esc(recTitle(id,r))+'</p>'+(id==='ladder'&&r.steps&&r.steps.length?'<p class="real">'+r.steps.filter(s=>s.done).length+' of '+r.steps.length+' steps done</p>':'')+'</button>').join('');
+    h+='<p class="modlink"><button class="btn quiet" data-go="m'+fm.m+'">From Module '+fm.m+'</button></p>';
+    return h;
+  }
+  if(fm.kind==='multi'){R=multiRecs(id).find(r=>r.id===rid);if(!R)return hdr('Not found','f-'+id)+'<p class="lead">This entry may have been deleted.</p>'}
+  else{D.forms[id]=D.forms[id]||{};R=D.forms[id]}
+  let h=hdr(fm.t,fm.kind==='multi'?'f-'+id:'m'+fm.m);
+  if(fm.kind==='single')h+='<p class="lead">'+esc(fm.d)+'. Your answers save as you type.</p>';
+  else h+='<p class="status">Started '+esc(fmtDate(R.created))+'. Saves as you type.</p>';
+  h+=fm.f.map(fieldHTML).join('');
+  h+='<div class="row">'+(fm.kind==='multi'?'<button class="btn" data-back="f-'+id+'">Done</button><button class="btn danger" id="delRec">Delete</button>':'<button class="btn" data-back="m'+fm.m+'">Done</button>')+'</div>';
+  if(fm.kind==='single')h+='<p class="modlink"><button class="btn quiet" data-go="m'+fm.m+'">From Module '+fm.m+'</button></p>';
+  return h;
+}
+function bindWorksheet(id,rid){
+  const app=document.getElementById('app'),fm=FORMS[id];
+  const nb=document.getElementById('newRec');
+  if(nb)nb.addEventListener('click',()=>{if(!Array.isArray(D.forms[id]))D.forms[id]=[];const r={id:uid(),created:Date.now()};D.forms[id].push(r);saveD();go('f-'+id+'-'+r.id)});
+  const del=document.getElementById('delRec');
+  if(del)del.addEventListener('click',()=>{if(!confirm('Delete this entry? This can’t be undone.'))return;D.forms[id]=multiRecs(id).filter(r=>r.id!==rid);saveD();toast('Deleted');go('f-'+id)});
+  if(!R||nb)return;
+  app.querySelectorAll('[data-k]').forEach(el=>el.addEventListener('input',()=>{R[el.dataset.k]=el.value;touch()}));
+  app.querySelectorAll('[data-rk]').forEach(el=>el.addEventListener('input',()=>{R[el.dataset.rk]=+el.value;el.nextElementSibling.textContent=el.value+'%';touch()}));
+  app.querySelectorAll('[data-ck]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.ck;R[k]=R[k]===b.dataset.cv?null:b.dataset.cv;app.querySelectorAll('[data-ck="'+k+'"]').forEach(x=>x.setAttribute('aria-pressed',String(R[k]===x.dataset.cv)));touch()}));
+  app.querySelectorAll('[data-xk]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.xk,v=b.dataset.xv;R[k]=R[k]||[];const i=R[k].indexOf(v);if(i>=0)R[k].splice(i,1);else R[k].push(v);b.setAttribute('aria-pressed',String(i<0));touch()}));
+  app.querySelectorAll('[data-sk]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.sk,i=+b.dataset.si,j=+b.dataset.sv;R[k]=R[k]||{};R[k][i]=j;app.querySelectorAll('[data-sk="'+k+'"][data-si="'+i+'"]').forEach(x=>x.setAttribute('aria-pressed',String(+x.dataset.sv===j)));const f=fm.f.find(x=>x.k===k);document.getElementById('res-'+k).innerHTML=scaleResult(f,R[k]);touch()}));
+  app.querySelectorAll('[data-logk]').forEach(b=>{const k=b.dataset.logk,sl=document.getElementById('log-'+k);sl.addEventListener('input',()=>sl.nextElementSibling.textContent=sl.value+'%');b.addEventListener('click',()=>{R[k]=R[k]||[];R[k].push({ts:Date.now(),v:+sl.value});touch();saveD();toast('Reading logged');rerender(true)})});
+  fm.f.filter(f=>f.type==='steps').forEach(f=>bindSteps(f.k));
+}
+function bindSteps(k){
+  const box=document.getElementById('steps-'+k);
+  const redraw=()=>{box.innerHTML=stepsHTML(k);bindSteps(k)};
+  box.querySelectorAll('[data-st]').forEach(el=>el.addEventListener('input',()=>{R[k][+el.dataset.st].t=el.value;touch()}));
+  box.querySelectorAll('[data-sr]').forEach(el=>el.addEventListener('input',()=>{R[k][+el.dataset.sr].d=+el.value;el.nextElementSibling.textContent=el.value;touch()}));
+  box.querySelectorAll('[data-sd]').forEach(el=>el.addEventListener('change',()=>{R[k][+el.dataset.sd].done=el.checked;el.closest('.stp').classList.toggle('ok',el.checked);touch();if(el.checked)toast('Nice work. Repeat a step a few times before moving up.')}));
+  box.querySelectorAll('[data-sx]').forEach(el=>el.addEventListener('click',()=>{R[k].splice(+el.dataset.sx,1);touch();redraw()}));
+  const add=box.querySelector('[data-sadd]');add&&add.addEventListener('click',()=>{R[k]=R[k]||[];R[k].push({t:'',d:null,done:false});touch();redraw();const ins=box.querySelectorAll('[data-st]');ins[ins.length-1].focus()});
+  const so=box.querySelector('[data-ssort]');so&&so.addEventListener('click',()=>{R[k].sort((a,b)=>(a.d==null?101:a.d)-(b.d==null?101:b.d));touch();redraw()});
+}
+function rerender(keep){const y=window.scrollY;render();if(keep)window.scrollTo(0,y)}
+
+/* ---------- Worry list ---------- */
+function worryView(){
+  const P=D.worry.period,open=D.worry.items.filter(i=>i.status==='open').sort((a,b)=>a.ts-b.ts),gone=D.worry.items.filter(i=>i.status!=='open');
+  let h=hdr('Worry list','m4');
+  h+='<p class="lead">Notice a worry, jot it down in a few words, then bring your attention back to what you were doing. Come back to it in your worry period.</p>';
+  h+='<div class="card"><h3>Add a worry</h3><textarea id="wq" rows="2" placeholder="For example, ache in my side, worried it’s appendicitis"></textarea><div class="row" style="margin-top:10px"><button class="btn" id="wadd">Save for later</button></div></div>';
+  h+='<div class="card"><h3>My worry period</h3><p>Same time and place each day, up to 30 minutes, not right before bed.</p><div class="pgrid"><label>Time<input type="time" id="pt" value="'+esc(P.time||'')+'"></label><label>Minutes<input type="number" inputmode="numeric" min="5" max="30" id="pm" value="'+esc(P.mins||'')+'"></label></div><label class="pl">Place<input type="text" id="pp" value="'+esc(P.place||'')+'" placeholder="For example, back verandah"></label></div>';
+  h+='<h3 class="sec">Waiting for my worry period ('+open.length+')</h3>';
+  if(!open.length)h+='<p class="hint">Nothing waiting.</p>';
+  h+=open.map(i=>'<div class="witem"><time>'+esc(fmtShort(i.ts))+'</time><p>'+esc(i.text)+'</p><div class="row"><button class="btn quiet" data-wlet="'+i.id+'">No longer bothers me</button><button class="btn ghost" data-wdiary="'+i.id+'">Work through it</button></div></div>').join('');
+  h+='<p class="hint">In your worry period, only think about items that still bother you, and stop when the time is up. Anything left can wait until tomorrow. For a worry that keeps returning, use a thought diary.</p>';
+  if(gone.length)h+='<details class="help"><summary>Dealt with ('+gone.length+')</summary><ul>'+gone.slice(-30).reverse().map(i=>'<li>'+esc(i.text)+'</li>').join('')+'</ul><button class="btn quiet" id="wclear">Clear this list</button></details>';
+  h+='<button class="btn quiet" data-go="f-worryreview">Review how postponing is going</button>';
+  return h;
+}
+function bindWorry(){
+  const q=document.getElementById('wq');
+  document.getElementById('wadd').addEventListener('click',()=>{const t=q.value.trim();if(!t){q.focus();return}D.worry.items.push({id:uid('w'),ts:Date.now(),text:t,status:'open'});saveD();toast('Saved for your worry period');rerender(true)});
+  const per=()=>{D.worry.period={time:document.getElementById('pt').value,mins:document.getElementById('pm').value,place:document.getElementById('pp').value};saveDSoon()};
+  ['pt','pm','pp'].forEach(id=>document.getElementById(id).addEventListener('input',per));
+  document.querySelectorAll('[data-wlet]').forEach(b=>b.addEventListener('click',()=>{const i=D.worry.items.find(x=>x.id===b.dataset.wlet);i.status='letgo';saveD();rerender(true)}));
+  document.querySelectorAll('[data-wdiary]').forEach(b=>b.addEventListener('click',()=>{const i=D.worry.items.find(x=>x.id===b.dataset.wdiary);i.status='diary';saveD();const d=blank();d.trigger=i.text;lsSet(LS_DRAFT,d);go('new')}));
+  const c=document.getElementById('wclear');c&&c.addEventListener('click',()=>{D.worry.items=D.worry.items.filter(i=>i.status==='open');saveD();rerender(true)});
+}
+
+/* ---------- Mindfulness timer ---------- */
+const PHASES=[
+ {t:'Settle and notice',x:'Sit comfortably, upright but relaxed. Ask yourself what you’re experiencing right now: what thoughts, feelings and body sensations are here? Just observe and describe them, without judging or trying to change anything.'},
+ {t:'Follow the breath',x:'Bring your attention to your belly rising and falling with each breath. You might say “let go” as you breathe out. When your mind wanders, notice where it went, let it be, and gently return to the breath.'},
+ {t:'Whole body breathing',x:'Widen your attention to your whole body breathing. If strong feelings are around, let them be there: whatever it is, it’s OK. When thoughts or sensations pull you away, acknowledge them and come back to the whole body breathing.'}];
+const LENGTHS={'5 minutes':[60,120,120],'10 minutes':[60,270,270]};
+let M={len:'5 minutes',run:false,start:0,paused:0,elapsed:0,lock:null,doneAt:0};
+function stopTimer(){if(S.timer){clearInterval(S.timer);S.timer=null}if(M.lock){try{M.lock.release()}catch(e){}M.lock=null}M.run=false}
+function medState(){const L=LENGTHS[M.len],tot=L.reduce((a,b)=>a+b,0),el=Math.min(M.elapsed,tot);let acc=0,p=0;for(;p<L.length;p++){if(el<acc+L[p])break;acc+=L[p]}return{tot,el,p:Math.min(p,2),left:tot-el,done:el>=tot}}
+function mmss(s){s=Math.ceil(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function meditateView(){
+  const st=medState();
+  let h=hdr('Mindfulness timer','m4');
+  h+='<div class="seg3" style="margin-bottom:18px">'+Object.keys(LENGTHS).map(k=>'<button data-ml="'+k+'" aria-pressed="'+(M.len===k)+'" '+((M.run||M.elapsed)?'disabled':'')+'>'+k+'</button>').join('')+'</div>';
+  h+='<div class="timer"><div class="ring" style="--p:'+(st.el/st.tot*360)+'deg"><div><span id="mt">'+mmss(st.left)+'</span><small id="mp">'+(st.done?'Finished':((M.run||M.elapsed)?'Step '+(st.p+1)+' of 3':'Ready'))+'</small></div></div></div>';
+  h+='<div class="card" id="mph"><h3>'+(st.done?'Well done':esc(PHASES[st.p].t))+'</h3><p>'+(st.done?'Every time you noticed your mind wandering and brought it back, you strengthened your attention.':esc(PHASES[st.p].x))+'</p></div>';
+  h+='<div class="row">'+(st.done?'<button class="btn" id="mlog">Add to attention log</button><button class="btn ghost" id="mreset">Start again</button>':'<button class="btn" id="mgo">'+(M.run?'Pause':(M.elapsed?'Resume':'Start'))+'</button>'+((M.run||M.elapsed)?'<button class="btn quiet" id="mreset">Reset</button>':''))+'</div>';
+  h+='<p class="hint" style="margin-top:16px">Aim to build up to ten minutes twice a day. Keep the screen on while you practise.</p>';
+  return h;
+}
+function bindMeditate(){
+  document.querySelectorAll('[data-ml]').forEach(b=>b.addEventListener('click',()=>{M.len=b.dataset.ml;rerender(true)}));
+  const g=document.getElementById('mgo');
+  g&&g.addEventListener('click',async()=>{
+    if(M.run){M.elapsed=(Date.now()-M.start)/1000;stopTimer();rerender(true);return}
+    M.run=true;M.start=Date.now()-M.elapsed*1000;
+    try{if(navigator.wakeLock)M.lock=await navigator.wakeLock.request('screen')}catch(e){}
+    let lastP=medState().p;
+    S.timer=setInterval(()=>{M.elapsed=(Date.now()-M.start)/1000;const st=medState();
+      if(st.done||st.p!==lastP){lastP=st.p;if(st.done){stopTimer();M.elapsed=st.tot}rerender(true);return}
+      const t=document.getElementById('mt');if(t)t.textContent=mmss(st.left);
+      const r=document.querySelector('.ring');if(r)r.style.setProperty('--p',(st.el/st.tot*360)+'deg');},250);
+    rerender(true);
+  });
+  const r=document.getElementById('mreset');r&&r.addEventListener('click',()=>{stopTimer();M.elapsed=0;rerender(true)});
+  const l=document.getElementById('mlog');l&&l.addEventListener('click',()=>{if(!Array.isArray(D.forms.attention))D.forms.attention=[];const rec={id:uid(),created:Date.now(),type:'Meditation',task:'Mindfulness practice',dur:M.len};D.forms.attention.push(rec);saveD();stopTimer();M.elapsed=0;go('f-attention-'+rec.id)});
+}
+
+/* ---------- Thought diary ---------- */
+let F=null;let draftTimer=null;
 function blank(){return{id:null,created:null,trigger:'',thoughts:'',hot:'',beliefBefore:50,emotions:[{name:'Worried',before:50,after:null}],sensations:'',evFor:'',evAgainst:'',worstEffect:'',worstCope:'',alternatives:'',likely:'',copeNow:'',realistic:'',beliefAfter:null,sensationChange:''}}
 
-S.entries=lsGet(LS_ENTRIES)||[];
 
-/* ---------- Storage (this device only) ---------- */
-const LS_BACKUP='td-lastbackup-v1';
 async function saveEntry(e){
   const i=S.entries.findIndex(x=>x.id===e.id);
   if(i>=0)S.entries[i]=e;else S.entries.push(e);
@@ -156,16 +678,7 @@ async function saveEntry(e){
 async function deleteEntry(id){
   S.entries=S.entries.filter(x=>x.id!==id);lsSet(LS_ENTRIES,S.entries);return true;
 }
-try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
 
-/* ---------- Routing ---------- */
-function route(){return (location.hash||'').replace(/^#/,'')}
-function go(h){if(route()===h)render();else location.hash=h}
-function isEditing(){const r=route();return r==='new'||r.indexOf('edit-')===0}
-window.addEventListener('hashchange',()=>{S.step=0;F=null;render();window.scrollTo(0,0)});
-
-/* ---------- Helpers ---------- */
 function sorted(){return S.entries.slice().sort((a,b)=>(b.created||0)-(a.created||0))}
 function shiftHTML(e){
   if(e.beliefAfter==null)return '<div class="shift-lbl"><span>Belief <b class="kb">'+e.beliefBefore+'%</b></span><span>Not re-rated yet</span></div>';
@@ -176,35 +689,20 @@ function shiftHTML(e){
 }
 function hotOf(e){return e.hot||(e.thoughts||'').split('\n').find(s=>s.trim())||'Untitled entry'}
 
-/* ---------- Views ---------- */
-function render(){
-  const r=route(),app=document.getElementById('app');
-  if(r==='new'){openForm(null);app.innerHTML=formView();bindForm();return}
-  if(r.indexOf('edit-')===0){const e=S.entries.find(x=>x.id===r.slice(5));if(!e){app.innerHTML=missing();return}openForm(e);app.innerHTML=formView();bindForm();return}
-  if(r.indexOf('entry-')===0){const e=S.entries.find(x=>x.id===r.slice(6));app.innerHTML=e?detailView(e):missing();bindDetail(e);return}
-  if(r==='summary'){app.innerHTML=summaryView();return}
-  if(r==='backup'){app.innerHTML=backupView();bindBackup();return}
-  app.innerHTML=homeView();bindHome();
-}
-function missing(){return '<header class="top"><button class="icon" onclick="location.hash=\'\'" aria-label="Back">‹</button><h2>Entry not found</h2></header><p class="lead">This entry may have been deleted.</p>'}
 
-function homeView(){
+function diaryHomeView(){
   const list=sorted(),d=lsGet(LS_DRAFT);
-  let h='<header class="top"><h1>Thought diary</h1><button class="btn" id="newBtn">New entry</button></header>';
-  h+='<p class="status">Saved on this device only.</p>';
-  const lb=lsGet(LS_BACKUP);
-  if(list.length&&(!lb||Date.now()-lb>30*864e5))h+='<div class="draft"><p>'+(lb?'It’s been a while since your last backup.':'You haven’t backed up your entries yet.')+'</p><button class="btn ghost" onclick="location.hash=\'backup\'">Back up</button></div>';
+  let h='<header class="top"><button class="icon" data-back="m5" aria-label="Back">‹</button><h2>Thought diary</h2><button class="btn" id="newBtn">New entry</button></header>';
   if(d&&(d.trigger||d.thoughts||d.hot))h+='<div class="draft"><p>You have an unfinished entry.</p><button class="btn ghost" id="resume">Continue</button></div>';
   if(!list.length){
     h+='<div class="empty"><h2>Catch a worry, then question it</h2><p>When a health worry shows up, jot it down, look at the evidence, and work towards a more realistic thought. If you’re postponing worries, save this for your worry period.</p></div>';
   }else{
     h+=list.map(e=>'<button class="entry" data-id="'+esc(e.id)+'"><time>'+esc(fmtDate(e.created))+'</time><p class="hot">'+esc(hotOf(e))+'</p>'+(e.realistic?'<p class="real">'+esc(e.realistic)+'</p>':'')+shiftHTML(e)+'</button>').join('');
-    h+='<div class="footer-links"><button class="btn ghost" onclick="location.hash=\'summary\'">Summary of my thoughts</button><button class="btn quiet" onclick="location.hash=\'backup\'">Export and backup</button></div>';
+    h+='<div class="footer-links"><button class="btn ghost" onclick="location.hash=\'summary\'">Summary of my thoughts</button></div>';
   }
-  if(!list.length)h+='<div class="footer-links" style="justify-content:center"><button class="btn quiet" onclick="location.hash=\'backup\'">Restore from a backup</button></div>';
   return h;
 }
-function bindHome(){
+function bindDiaryHome(){
   const n=document.getElementById('newBtn');n&&n.addEventListener('click',()=>{lsDel(LS_DRAFT);go('new')});
   const r=document.getElementById('resume');r&&r.addEventListener('click',()=>{const d=lsGet(LS_DRAFT);go(d&&d.id?'edit-'+d.id:'new')});
   document.querySelectorAll('.entry').forEach(b=>b.addEventListener('click',()=>go('entry-'+b.dataset.id)));
@@ -212,7 +710,7 @@ function bindHome(){
 
 function summaryView(){
   const list=sorted().filter(e=>e.realistic);
-  let h='<header class="top"><button class="icon" onclick="location.hash=\'\'" aria-label="Back">‹</button><h2>Summary of my thoughts</h2></header>';
+  let h='<header class="top"><button class="icon" data-back="diary" aria-label="Back">‹</button><h2>Summary of my thoughts</h2></header>';
   h+='<p class="lead">A quick reference for when an old worry comes back. If a realistic thought doesn’t feel believable when you read it, do a fresh entry on that worry.</p>';
   if(!list.length)return h+'<div class="empty"><p>Finished entries with a realistic thought will appear here.</p></div>';
   return h+list.map(e=>'<div class="pair"><p class="o">'+esc(hotOf(e))+'</p><p class="n">'+esc(e.realistic)+'</p></div>').join('');
@@ -221,7 +719,7 @@ function summaryView(){
 function detailView(e){
   const item=(k,v)=>v?'<div class="d-item"><div class="k">'+k+'</div><div class="v">'+esc(v)+'</div></div>':'';
   const emo=(e.emotions||[]).filter(x=>x.name).map(x=>x.name+' '+x.before+'%'+(x.after!=null?' to '+x.after+'%':'')).join('\n');
-  let h='<header class="top"><button class="icon" onclick="location.hash=\'\'" aria-label="Back">‹</button><h2>'+esc(fmtDate(e.created))+'</h2></header>';
+  let h='<header class="top"><button class="icon" data-back="diary" aria-label="Back">‹</button><h2>'+esc(fmtDate(e.created))+'</h2></header>';
   h+='<div class="pair"><p class="o">'+esc(hotOf(e))+'</p>'+(e.realistic?'<p class="n">'+esc(e.realistic)+'</p>':'')+'<div style="margin-top:12px">'+shiftHTML(e)+'</div></div>';
   h+='<div class="d-sec"><h3>Notice</h3>'+item('What triggered it',e.trigger)+item('Worries and predictions',e.thoughts)+item('Emotions',emo)+item('Physical sensations',e.sensations)+'</div>';
   h+='<div class="d-sec"><h3>Question</h3>'+item('Evidence for',e.evFor)+item('Evidence against',e.evAgainst)+item('How expecting the worst affects me',e.worstEffect)+item('How I’d cope if the worst happened',e.worstCope)+item('Other explanations',e.alternatives)+item('Most likely explanation',e.likely)+item('What I can do right now',e.copeNow)+'</div>';
@@ -232,10 +730,10 @@ function detailView(e){
 function bindDetail(e){
   if(!e)return;
   document.getElementById('edit').addEventListener('click',()=>go('edit-'+e.id));
-  document.getElementById('del').addEventListener('click',async()=>{if(!confirm('Delete this entry? This can’t be undone.'))return;if(await deleteEntry(e.id)){toast('Entry deleted');go('')}});
+  document.getElementById('del').addEventListener('click',async()=>{if(!confirm('Delete this entry? This can’t be undone.'))return;if(await deleteEntry(e.id)){toast('Entry deleted');go('diary')}});
 }
 
-/* ---------- Form ---------- */
+
 function openForm(e){
   if(F)return;
   const d=lsGet(LS_DRAFT);
@@ -298,7 +796,7 @@ function bindForm(){
   app.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{S.step=+b.dataset.step;rerenderForm()}));
   const nx=document.getElementById('next');nx&&nx.addEventListener('click',()=>{S.step++;rerenderForm()});
   const pv=document.getElementById('prev');pv&&pv.addEventListener('click',()=>{S.step--;rerenderForm()});
-  document.getElementById('back').addEventListener('click',()=>{F&&F.id?go('entry-'+F.id):go('')});
+  document.getElementById('back').addEventListener('click',()=>{F&&F.id?go('entry-'+F.id):back('diary')});
   const sv=document.getElementById('save');sv&&sv.addEventListener('click',async()=>{
     if(!(F.thoughts||'').trim()&&!(F.hot||'').trim()){S.step=0;rerenderForm();toast('Add the thought you’re worried about first.');return}
     sv.disabled=true;
@@ -310,6 +808,7 @@ function bindForm(){
     if(await saveEntry(e)){lsDel(LS_DRAFT);toast('Entry saved');F=null;go('entry-'+e.id)}else sv.disabled=false;
   });
 }
+
 
 /* ---------- Export and backup ---------- */
 function stamp(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
@@ -324,8 +823,8 @@ async function shareFile(name,text,type){
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);return true;
 }
-function readableText(){
-  const L=['Thought diary','Exported '+fmtDate(Date.now()),''];
+function diaryText(L){
+  L.push('THOUGHT DIARY','');
   sorted().forEach(e=>{
     L.push('== '+fmtDate(e.created)+' ==');
     const add=(k,v)=>{if(v!=null&&String(v).trim())L.push(k+': '+v)};
@@ -336,23 +835,65 @@ function readableText(){
     add('Most likely explanation',e.likely);add('Coping right now',e.copeNow);add('Realistic thought',e.realistic);
     if(e.beliefAfter!=null)add('Belief after',e.beliefAfter+'%');add('Physical sensations now',e.sensationChange);L.push('');
   });
+}
+
+/* ---------- Backup ---------- */
+function fieldText(f,v){
+  if(!isFilled(v))return null;
+  if(f.type==='rate')return v+'%';
+  if(f.type==='check')return v.join('; ');
+  if(f.type==='scale4')return f.items.map((it,i)=>v[i]!=null?'  '+it+': '+OPT4[v[i]]:null).filter(Boolean).join('\n');
+  if(f.type==='steps')return v.map(s=>'  '+(s.done?'[x] ':'[ ] ')+(s.t||'')+(s.d!=null?' (distress '+s.d+')':'')).join('\n');
+  if(f.type==='log')return v.map(x=>'  '+fmtShort(x.ts)+': '+x.v+'%').join('\n');
+  return String(v);
+}
+function recText(L,fm,r){fm.f.forEach(f=>{if(f.type==='head'){L.push('-- '+f.l+' --');return}const t=fieldText(f,r[f.k]);if(t!=null)L.push(f.l+'\n'+t)})}
+function readableText(){
+  const L=['Helping Health Anxiety: my work','Exported '+fmtDate(Date.now()),''];
+  MODULES.forEach(m=>{
+    const ids=m.tools.filter(id=>FORMS[id]&&FORMS[id].m===m.n);
+    const any=ids.some(id=>FORMS[id].kind==='multi'?multiRecs(id).length:singleRec(id)&&Object.keys(singleRec(id)).length);
+    if(!any)return;
+    L.push('==== MODULE '+m.n+': '+m.t.toUpperCase()+' ====','');
+    ids.forEach(id=>{const fm=FORMS[id];
+      if(fm.kind==='multi')multiRecs(id).forEach(r=>{L.push('## '+fm.t+' ('+fmtDate(r.created)+')');recText(L,fm,r);L.push('')});
+      else if(singleRec(id)){L.push('## '+fm.t);recText(L,fm,singleRec(id));L.push('')}
+    });
+  });
+  if(S.entries.length)diaryText(L);
+  const w=D.worry.items;if(w.length){L.push('WORRY LIST','');w.forEach(i=>L.push(fmtShort(i.ts)+': '+i.text+(i.status==='open'?' (waiting)':'')));L.push('')}
   return L.join('\n');
 }
+function hasAnything(){return S.entries.length||Object.keys(D.forms).length||D.worry.items.length}
 function backupView(){
-  const lb=lsGet(LS_BACKUP),n=S.entries.length;
-  let h='<header class="top"><button class="icon" onclick="location.hash=\'\'" aria-label="Back">‹</button><h2>Export and backup</h2></header>';
-  h+='<p class="lead">Your entries live only on this phone. '+(lb?'Last backup: '+esc(fmtDate(lb))+'.':'No backup yet.')+'</p>';
-  h+='<div class="card"><h3>Back up my entries</h3><p>Saves a backup file you can keep in Files or iCloud Drive and restore later, for example on a new phone.</p><button class="btn" id="bk" '+(n?'':'disabled')+'>Export backup</button></div>';
-  h+='<div class="card"><h3>Share as readable text</h3><p>A plain text copy of every entry, handy for emailing to your psychologist or GP.</p><button class="btn ghost" id="tx" '+(n?'':'disabled')+'>Export as text</button></div>';
-  h+='<div class="card"><h3>Restore from a backup</h3><p>Adds entries from a backup file. Entries already on this phone are kept.</p><button class="btn ghost" id="rs">Choose backup file</button><input type="file" id="rsf" accept=".json,application/json" hidden></div>';
+  const lb=lsGet(LS_BACKUP),n=hasAnything();
+  let h='<header class="top"><h1>Backup</h1></header>';
+  h+='<p class="lead">Everything you enter lives only on this phone. '+(lb?'Last backup: '+esc(fmtDate(lb))+'.':'No backup yet.')+'</p>';
+  h+='<div class="card"><h3>Back up everything</h3><p>Your thought diary, worksheets, stepladders, worry list and progress in one file. Keep it in Files or iCloud Drive and restore it later, for example on a new phone.</p><button class="btn" id="bk" '+(n?'':'disabled')+'>Export backup</button></div>';
+  h+='<div class="card"><h3>Share as readable text</h3><p>A plain text copy of all your work, handy for emailing to your psychologist or GP.</p><button class="btn ghost" id="tx" '+(n?'':'disabled')+'>Export as text</button></div>';
+  h+='<div class="card"><h3>Restore from a backup</h3><p>Adds what’s in a backup file. Anything already on this phone is kept, and the newer version wins where both exist. Older thought diary backups work too.</p><button class="btn ghost" id="rs">Choose backup file</button><input type="file" id="rsf" accept=".json,application/json" hidden></div>';
   return h;
+}
+function mergeD(src){
+  let c=0;src=src||{};
+  Object.keys(src.forms||{}).forEach(id=>{
+    const a=src.forms[id],b=D.forms[id];
+    if(Array.isArray(a)){const L=Array.isArray(b)?b:(D.forms[id]=[]);a.forEach(r=>{if(!r||!r.id)return;const i=L.findIndex(x=>x.id===r.id);if(i<0){L.push(r);c++}else if((r.updated||0)>(L[i].updated||0)){L[i]=r;c++}})}
+    else if(a&&typeof a==='object'){if(!b||(a.updated||0)>(b.updated||0)){D.forms[id]=a;c++}}
+  });
+  Object.keys(src.done||{}).forEach(k=>{if(src.done[k])D.done[k]=true});
+  const w=src.worry||{};(w.items||[]).forEach(i=>{if(i&&i.id&&!D.worry.items.find(x=>x.id===i.id)){D.worry.items.push(i);c++}});
+  if(w.period&&!D.worry.period.time)D.worry.period=w.period;
+  if(!D.last&&src.last)D.last=src.last;
+  return c;
 }
 function bindBackup(){
   document.getElementById('bk').addEventListener('click',async()=>{
-    const data=JSON.stringify({app:'thought-diary',version:1,exported:Date.now(),entries:S.entries},null,1);
-    if(await shareFile('thought-diary-backup-'+stamp()+'.json',data,'application/json')){lsSet(LS_BACKUP,Date.now());toast('Backup exported');render()}
+    saveD();
+    const data=JSON.stringify({app:'thought-diary',version:2,exported:Date.now(),entries:S.entries,hha:D},null,1);
+    if(await shareFile('health-anxiety-backup-'+stamp()+'.json',data,'application/json')){lsSet(LS_BACKUP,Date.now());toast('Backup exported');render()}
   });
-  document.getElementById('tx').addEventListener('click',()=>shareFile('thought-diary-'+stamp()+'.txt',readableText(),'text/plain'));
+  document.getElementById('tx').addEventListener('click',()=>shareFile('health-anxiety-'+stamp()+'.txt',readableText(),'text/plain'));
   const f=document.getElementById('rsf');
   document.getElementById('rs').addEventListener('click',()=>f.click());
   f.addEventListener('change',async()=>{
@@ -360,20 +901,43 @@ function bindBackup(){
     try{
       const d=JSON.parse(await file.text());
       if(!d||d.app!=='thought-diary'||!Array.isArray(d.entries))throw 0;
-      let added=0,updated=0;
-      d.entries.forEach(e=>{
-        if(!e||!e.id)return;
-        const i=S.entries.findIndex(x=>x.id===e.id);
-        if(i<0){S.entries.push(e);added++}
-        else if((e.updated||0)>(S.entries[i].updated||0)){S.entries[i]=e;updated++}
-      });
+      let c=0;
+      d.entries.forEach(e=>{if(!e||!e.id)return;const i=S.entries.findIndex(x=>x.id===e.id);if(i<0){S.entries.push(e);c++}else if((e.updated||0)>(S.entries[i].updated||0)){S.entries[i]=e;c++}});
       lsSet(LS_ENTRIES,S.entries);
-      toast(added+' added'+(updated?', '+updated+' updated':''));render();
-    }catch(e){toast('That file isn’t a thought diary backup.')}
+      if(d.hha){c+=mergeD(d.hha);saveD()}
+      toast(c?c+' item'+(c===1?'':'s')+' restored':'Nothing new in that backup');render();
+    }catch(e){toast('That file isn’t a backup from this app.')}
     f.value='';
   });
 }
 
+/* ---------- Router ---------- */
+function tabFor(r){if(r==='backup')return 'backup';if(r===''||/^m[1-9]$/.test(r)||r==='about')return 'course';return 'tools'}
+function render(){
+  const r=route(),app=document.getElementById('app');let m;
+  document.querySelectorAll('.tabbar a').forEach(a=>a.setAttribute('aria-current',a.dataset.tab===tabFor(r)?'page':'false'));
+  const lb=lsGet(LS_BACKUP),stale=hasAnything()&&(!lb||Date.now()-lb>30*864e5);
+  document.getElementById('bkdot').hidden=!stale;
+  if(r==='')app.innerHTML=courseView();
+  else if((m=r.match(/^m([1-9])$/))){app.innerHTML=moduleView(+m[1]);bindModule(+m[1])}
+  else if(r==='tools')app.innerHTML=toolsView();
+  else if(r==='about')app.innerHTML=aboutView();
+  else if(r==='backup'){app.innerHTML=backupView();bindBackup()}
+  else if(r==='worry'){app.innerHTML=worryView();bindWorry()}
+  else if(r==='meditate'){app.innerHTML=meditateView();bindMeditate()}
+  else if(r==='diary'){app.innerHTML=diaryHomeView();bindDiaryHome()}
+  else if(r==='summary')app.innerHTML=summaryView();
+  else if(r==='new'){openForm(null);app.innerHTML=formView();bindForm()}
+  else if(r.indexOf('edit-')===0){const e=S.entries.find(x=>x.id===r.slice(5));if(!e)app.innerHTML=missing();else{openForm(e);app.innerHTML=formView();bindForm()}}
+  else if(r.indexOf('entry-')===0){const e=S.entries.find(x=>x.id===r.slice(6));app.innerHTML=e?detailView(e):missing();bindDetail(e)}
+  else if((m=r.match(/^f-([a-z0-9]+)(?:-(r[a-z0-9]+))?$/i))&&FORMS[m[1]]){R=null;app.innerHTML=worksheetView(m[1],m[2]);bindWorksheet(m[1],m[2])}
+  else app.innerHTML=courseView();
+}
+function missing(){return hdr('Not found','diary')+'<p class="lead">This entry may have been deleted.</p>'}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-back]');if(b){e.preventDefault();back(b.dataset.back);return}
+  const g=e.target.closest('[data-go]');if(g){e.preventDefault();go(g.dataset.go)}
+});
 render();
 })();
 </script>
