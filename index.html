@@ -719,7 +719,7 @@ function summaryView(){
 function detailView(e){
   const item=(k,v)=>v?'<div class="d-item"><div class="k">'+k+'</div><div class="v">'+esc(v)+'</div></div>':'';
   const emo=(e.emotions||[]).filter(x=>x.name).map(x=>x.name+' '+x.before+'%'+(x.after!=null?' to '+x.after+'%':'')).join('\n');
-  let h='<header class="top"><button class="icon" data-back="diary" aria-label="Back">‹</button><h2>'+esc(fmtDate(e.created))+'</h2></header>';
+  let h='<header class="top"><button class="icon" data-go="diary" aria-label="Back">‹</button><h2>'+esc(fmtDate(e.created))+'</h2></header>';
   h+='<div class="pair"><p class="o">'+esc(hotOf(e))+'</p>'+(e.realistic?'<p class="n">'+esc(e.realistic)+'</p>':'')+'<div style="margin-top:12px">'+shiftHTML(e)+'</div></div>';
   h+='<div class="d-sec"><h3>Notice</h3>'+item('What triggered it',e.trigger)+item('Worries and predictions',e.thoughts)+item('Emotions',emo)+item('Physical sensations',e.sensations)+'</div>';
   h+='<div class="d-sec"><h3>Question</h3>'+item('Evidence for',e.evFor)+item('Evidence against',e.evAgainst)+item('How expecting the worst affects me',e.worstEffect)+item('How I’d cope if the worst happened',e.worstCope)+item('Other explanations',e.alternatives)+item('Most likely explanation',e.likely)+item('What I can do right now',e.copeNow)+'</div>';
@@ -784,7 +784,7 @@ function rerenderForm(keepScroll){const y=window.scrollY;document.getElementById
 function bindForm(){
   const app=document.getElementById('app');
   app.querySelectorAll('[data-f]').forEach(el=>el.addEventListener('input',()=>{F[el.dataset.f]=el.value;saveDraft();if(el.dataset.f==='hot')app.querySelectorAll('[data-hot]').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.hot===el.value)))}));
-  const th=document.getElementById('f-thoughts');let ct=null;th&&th.addEventListener('input',()=>{clearTimeout(ct);ct=setTimeout(()=>{const lines=(F.thoughts||'').split('\n').map(x=>x.trim()).filter(Boolean);document.getElementById('chipbox').innerHTML=chipsHTML(lines);bindChips();const hi=document.getElementById('f-hot');if(hi)hi.placeholder=lines[0]||'The thought that worries me most'},500)});
+  const th=document.getElementById('f-thoughts');let ct=null;th&&th.addEventListener('input',()=>{clearTimeout(ct);ct=setTimeout(()=>{if(!F)return;const lines=(F.thoughts||'').split('\n').map(x=>x.trim()).filter(Boolean);const cb=document.getElementById('chipbox');if(!cb)return;cb.innerHTML=chipsHTML(lines);bindChips();const hi=document.getElementById('f-hot');if(hi)hi.placeholder=lines[0]||'The thought that worries me most'},500)});
   app.querySelectorAll('[data-r]').forEach(el=>el.addEventListener('input',()=>{F[el.dataset.r]=+el.value;document.getElementById('o-'+el.dataset.r).textContent=el.value+'%';saveDraft()}));
   bindChips();
   app.querySelectorAll('[data-emo]').forEach(el=>el.addEventListener('input',()=>{F.emotions[+el.dataset.emo].name=el.value;saveDraft()}));
@@ -801,11 +801,11 @@ function bindForm(){
     if(!(F.thoughts||'').trim()&&!(F.hot||'').trim()){S.step=0;rerenderForm();toast('Add the thought you’re worried about first.');return}
     sv.disabled=true;
     const e=JSON.parse(JSON.stringify(F));
-    if(!e.id){e.id=newId();e.created=Date.now()}
+    if(!e.id){e.id=uid('e');e.created=Date.now()}
     if(!e.hot)e.hot=hotOf(e);
     e.emotions=e.emotions.filter(x=>x.name.trim());
     e.updated=Date.now();
-    if(await saveEntry(e)){lsDel(LS_DRAFT);toast('Entry saved');F=null;go('entry-'+e.id)}else sv.disabled=false;
+    if(await saveEntry(e)){lsDel(LS_DRAFT);toast('Entry saved');F=null;location.replace('#entry-'+e.id)}else sv.disabled=false;
   });
 }
 
